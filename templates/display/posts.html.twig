@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LP Forum - Topics{% endblock %}
+
+{% block body %}
+
+    <nav class="col-12 bg-light" aria-label="breadcrumb">
+        <ol class="breadcrumb col-8 container bg-light">
+            <li class="breadcrumb-item"><a class="text-success" href="#">Accueil</a></li>
+            <li class="breadcrumb-item"><a class="text-success" href="#">Section</a></li>
+            <li class="breadcrumb-item"><a class="text-success" href="#">Categorie</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ topic.topicTitle }}</li>
+        </ol>
+    </nav>
+
+        <div class=" col-12 bg-light text-secondary">
+            <div class="col-8 container justify-content-center">
+                <p class="display-3">{{ topic.topicTitle }}</p>
+                <p>{{ topic.topicContent }}</p>
+                <p class="text-right">{{ topic.topicDatetime|date('d/m/Y - h:m') }}</p>
+            </div>
+        </div>
+        <div class="col-8 container justify-content-center">
+
+
+                {% for post in posts %}
+                    {% if post.postEnabled == TRUE %}
+                        <div class="container-fluid row justify-content-center" style="margin-bottom: 10px;">
+                             <div class="card col-2 border border-success" style="width: 18rem;">
+                                <img class="rounded-circle align-self-center" src="{{ asset('images/profil.png') }}" alt="Photo de profil" width="100vw">
+                                <div class="card-body" style="padding: 0">
+                                    <p class="card-text text-success">{{ post.postsAuthor.userPseudo }}</p>
+                                </div>
+                                 <p class="text-muted">{{ post.postDatetime|date('d/m/Y à h:m') }}</p>
+                            </div>
+                            <div class="jumbotron jumbotron-fluid col-9 align-self-end border border-success" style="margin-bottom: 0">
+                                <div class="container">
+                                    <p class="lead">{{ post.postContent }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            <h1 class="display-4">Laisser une réponse :</h1>
+            <form class="col-12">
+                <textarea name="editor1" id="editor1" rows="10" cols="80"></textarea>
+                <script>CKEDITOR.replace( 'editor1' );</script>
+            </form>
+        </div>
+
+{% endblock %}

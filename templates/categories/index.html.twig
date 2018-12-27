@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categories index{% endblock %}
+
+{% block body %}
+    <h1>Categories index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Cat_title</th>
+                <th>Cat_subtitle</th>
+                <th>Section Liée</th>
+                <th>Cat_datetime</th>
+                <th>Cat_enabled</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.catTitle }}</td>
+                <td>{{ category.catSubtitle }}</td>
+                <td>{{ category.catSection.SecTitle }}</td>
+                <td>{{ category.catDatetime ? category.catDatetime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ category.catEnabled ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('categories_show', {'id': category.id}) }}">show</a>
+                    <a href="{{ path('categories_edit', {'id': category.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('categories_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sections index{% endblock %}
+
+{% block body %}
+    <h1>Sections index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Sec_title</th>
+                <th>Sec_subtitle</th>
+                <th>Sec_datetime</th>
+                <th>Sec_enabled</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for section in sections %}
+            <tr>
+                <td>{{ section.id }}</td>
+                <td>{{ section.secTitle }}</td>
+                <td>{{ section.secSubtitle }}</td>
+                <td>{{ section.secDatetime ? section.secDatetime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ section.secEnabled ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('sections_show', {'id': section.id}) }}">show</a>
+                    <a href="{{ path('sections_edit', {'id': section.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('sections_new') }}">Create new</a>
+{% endblock %}

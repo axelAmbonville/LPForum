@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Topics index{% endblock %}
+
+{% block body %}
+    <h1>Topics index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Topic_title</th>
+                <th>Topic_content</th>
+                <th>Categorie Liée</th>
+                <th>Topic_solved</th>
+                <th>Topic_datetime</th>
+                <th>Topic_enabled</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for topic in topics %}
+            <tr>
+                <td>{{ topic.id }}</td>
+                <td>{{ topic.topicTitle }}</td>
+                <td>{{ topic.topicContent }}</td>
+                <td>{{ topic.topicsCat.CatTitle }}</td>
+                <td>{{ topic.topicSolved ? 'Yes' : 'No' }}</td>
+                <td>{{ topic.topicDatetime ? topic.topicDatetime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ topic.topicEnabled ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('topics_show', {'id': topic.id}) }}">show</a>
+                    <a href="{{ path('topics_edit', {'id': topic.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('topics_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LP Forum - Topics{% endblock %}
+
+{% block body %}
+    <div class="col-12 container row justify-content-center">
+        <div class="col-8">
+            <div class="list-group">
+                <a href="{{ path('topics_display', {'topics_cat_id':categorie.id} )}}"
+                   class="list-group-item list-group-item-action bg-success text-white">
+                    <p class="h2">{{ categorie.id }} - {{ categorie.catTitle }}</p>
+                    <p class="text-light">{{ categorie.catSubtitle }}</p>
+                    <p class="text-light">{{ categorie.catDatetime|date('d/m/Y') }}</p>
+                </a>
+
+
+                {% for topic in topics %}
+                    {% if topic.topicEnabled == TRUE %}
+                        <a href="{{ path('posts_display', {'posts_topic_id':topic.id} )}}"
+                           class="list-group-item list-group-item-action bg-light">
+                            <p class="h2">{{ topic.id }} - {{ topic.topicTitle }}</p>
+                            <p class="lead">{{ topic.topicContent }}</p>
+                            <p class="text-muted">{{ topic.topicDatetime|date('d/m/Y - h:m') }}</p>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

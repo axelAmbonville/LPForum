@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LP Forum - Sections{% endblock %}
+
+{% block body %}
+<div class="col-12 container row justify-content-center">
+    <div class="col-8">
+    {% for section in sections %}
+        {% if section.secEnabled == TRUE %}
+            <div class="list-group">
+                <a href="{{ path('categories_display', {'cat_section_id':section.id} )}}"
+                   class="list-group-item list-group-item-action bg-success text-white">
+                    <p class="h2">{{ section.id }} - {{ section.secTitle }}</p>
+                    <p class="text-light">{{ section.secSubtitle }}</p>
+                    <p class="text-light">{{ section.secDatetime|date('d/m/Y') }}</p>
+                </a>
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        #scene {
+            width: 120vw;
+            height: 110vh;
+            margin-top: -10vh;
+            margin-left: -10vw;
+            background-color: transparent;
+        }
+
+        #scene div {
+            width: 100vw;
+            height: 100vh;
+            margin-top: 10vh;
+            margin-left: 10vw;
+
+        }
+
+        #para_background {
+            width: 100% !important;
+            height: 100% !important;
+            margin-left: -5vw !important;
+            margin-top: -10vh !important;
+            background-color: #ececec;
+
+        }
+
+        #plan_1 {
+            background-color: transparent;
+        }
+
+        #plan_1 h1{
+            margin-top: 26vh;
+            font-size: 10vh;
+        }
+
+        #cache {
+            background-color: white;
+            width: 100% !important;
+            height: 40px !important;
+            top: initial !important;
+            left: initial !important;
+            margin: initial !important;
+            bottom: -17px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+
+    <div id="scene">
+        <div id="para_background" data-depth="0.2">Background</div>
+        <div id="plan_1" class="align-items-center" data-depth="0.4">
+            <h1 class="display-1 col-12 text-dark text-center">Bienvenue sur LP Forum</h1>
+        </div>
+        <div id="cache"></div>
+    </div>
+
+    <div class="row col-12 justify-content-center">
+        <div class="row col-sm-12 col-md-9 justify-content-center">
+            <div class="card col-sm-12 col-md-3 justify-content-center" style="width: 18rem;">
+                <img class="card-img-top" src="" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">Card title</h5>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                </div>
+            </div>
+            <div class="jumbotron jumbotron-fluid col-sm-12 col-md-6">
+                <div class="container">
+                    <h1 class="display-4">Fluid jumbotron</h1>
+                    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row col-12 justify-content-center">
+        <div class="row col-sm-12 col-md-8 justify-content-center">
+            {% for section in sections %}
+                {% if section.secEnabled == TRUE %}
+                    <div class="card" style="width: 18rem;">
+                        <a href="{{ path('categories_display', {'cat_section_id' : section.id}) }}">
+                            <div class="card-body list-group-item-action">
+                                <h5 class="card-title">{{ section.secTitle }}</h5>
+                                <p class="card-text">{{ section.secSubTitle }}</p>
+                            </div>
+                            <div class="card-footer card-text"><small class="text-muted">{{ section.secDateTime | date('d/m/Y - h:m') }}</small></div>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js"></script>
+    <script>
+        var scene = document.getElementById('scene');
+        var parallaxInstance = new Parallax(scene, {
+            relativeInput: true,
+            limitX: 100,
+            limitY: 100,
+            hoverOnly: true,
+        });
+    </script>
+{% endblock %}

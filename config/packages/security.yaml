@@ -1,0 +1,39 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+            # use your user class name here
+            App\Entity\Users: bcrypt
+                # bcrypt or argon2i are recommended
+                # argon2i is more secure, but requires PHP 7.2 or the Sodium extension
+    providers:
+        database_users:
+            entity: { class: App\Entity\Users, property: user_pseudo }
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: true
+            form_login :
+                login_path : login
+                check_path : home
+            guard:
+                authenticators:
+                    - App\Security\LoginFormAuthenticator
+            logout:
+                path: app_logout
+            
+            # activate different ways to authenticate
+
+            # http_basic: true
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: true
+            # https://symfony.com/doc/current/security/form_login_setup.html
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        - { path: ^/admin/, roles: ROLE_ADMIN }
+         #- { path: ^/profile, roles: ROLE_USER }

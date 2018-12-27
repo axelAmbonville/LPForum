@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sections{% endblock %}
+
+{% block body %}
+    <h1>Sections</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ section.id }}</td>
+            </tr>
+            <tr>
+                <th>Sec_title</th>
+                <td>{{ section.secTitle }}</td>
+            </tr>
+            <tr>
+                <th>Sec_subtitle</th>
+                <td>{{ section.secSubtitle }}</td>
+            </tr>
+            <tr>
+                <th>Sec_datetime</th>
+                <td>{{ section.secDatetime ? section.secDatetime|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sec_enabled</th>
+                <td>{{ section.secEnabled ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('sections_index') }}">back to list</a>
+
+    <a href="{{ path('sections_edit', {'id': section.id}) }}">edit</a>
+
+    {{ include('sections/_delete_form.html.twig') }}
+{% endblock %}
